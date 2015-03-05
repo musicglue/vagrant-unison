@@ -40,7 +40,9 @@ module VagrantPlugins
       end
 
       def ignore_arg
-        ['-ignore', %("#{@machine.config.sync.ignore}")] if @machine.config.sync.ignore
+        [@machine.config.sync.ignore].flatten.compact.map do |ignore|
+          ['-ignore', %("#{ignore}")]
+        end
       end
 
       def repeat_arg
