@@ -1,6 +1,5 @@
 en:
   vagrant_unison:
-    
     config:
       host_folder_required: |-
         Host folder is required
@@ -15,5 +14,5 @@ en:
         Host path: %{hostpath}
         Guest path: %{guestpath}
         Error: %{stderr}
-        Full command causing error: 
+        Full command causing error:
         %{command}

@@ -7,12 +7,16 @@ module VagrantPlugins
       end
 
       def guest
-        @machine.config.sync.guest_folder
+        @guest ||= @machine.config.sync.guest_folder.tap do |folder|
+          fail I18n.t("vagrant_unison.config.guest_folder_required") if folder.to_s.empty?
+        end
       end
 
       def host
         @host ||= begin
-          path = File.expand_path(@machine.config.sync.host_folder, @env.root_path)
+          folder = @machine.config.sync.host_folder
+          fail I18n.t("vagrant_unison.config.host_folder_required") if folder.to_s.empty?
+          path = File.expand_path(folder, @env.root_path)
 
           # Make sure there is a trailing slash on the host path to
           # avoid creating an additional directory with rsync
